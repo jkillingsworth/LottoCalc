@@ -10,8 +10,16 @@ namespace LottoCalc
     [Activity(MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
+        private const string keySelectedGame = "SelectedGame";
         private const string keyResetEnabled = "ResetEnabled";
         private const string keyNumberString = "NumberString";
+
+        private int selectedGamePosition = 0;
+
+        private Spinner SpinnerGame
+        {
+            get { return FindViewById<Spinner>(Resource.Id.spinnerGame); }
+        }
 
         private Button ButtonGenerate
         {
@@ -34,12 +42,20 @@ namespace LottoCalc
 
             SetContentView(Resource.Layout.Main);
 
+            var adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            adapter.Add("Florida Lotto");
+            adapter.Add("Fantasy 5");
+
+            SpinnerGame.Adapter = adapter;
+            SpinnerGame.ItemSelected += SpinnerGame_ItemSelected;
             ButtonGenerate.Click += delegate { Generate(); };
             ButtonReset.Click += delegate { Reset(); };
         }
 
         protected override void OnRestoreInstanceState(Bundle savedInstanceState)
         {
+            selectedGamePosition = savedInstanceState.GetInt(keySelectedGame);
             ButtonReset.Enabled = savedInstanceState.GetBoolean(keyResetEnabled);
             TextNumbers.Text = savedInstanceState.GetString(keyNumberString);
 
@@ -48,10 +64,20 @@ namespace LottoCalc
 
         protected override void OnSaveInstanceState(Bundle outState)
         {
+            outState.PutInt(keySelectedGame, selectedGamePosition);
             outState.PutBoolean(keyResetEnabled, ButtonReset.Enabled);
             outState.PutString(keyNumberString, TextNumbers.Text);
 
             base.OnSaveInstanceState(outState);
+        }
+
+        private void SpinnerGame_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            if (selectedGamePosition != e.Position)
+            {
+                selectedGamePosition = e.Position;
+                Reset();
+            }
         }
 
         private void Generate()
@@ -68,8 +94,24 @@ namespace LottoCalc
 
         private List<int> GetNumbers()
         {
-            const int poolCount = 53;
-            const int pickCount = 6;
+            int poolCount;
+            int pickCount;
+
+            switch (selectedGamePosition)
+            {
+                case 0:
+                    poolCount = 53;
+                    pickCount = 6;
+                    break;
+
+                case 1:
+                    poolCount = 36;
+                    pickCount = 5;
+                    break;
+
+                default:
+                    throw new ApplicationException();
+            }
 
             var poolValues = new List<int>(poolCount);
             var pickValues = new List<int>(pickCount);

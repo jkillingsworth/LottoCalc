@@ -60,14 +60,17 @@ namespace LottoCalc
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int buttonGenerate = 2131034112;
-			
 			// aapt resource value: 0x7f050001
-			public const int buttonReset = 2131034113;
+			public const int buttonGenerate = 2131034113;
 			
 			// aapt resource value: 0x7f050002
-			public const int textNumbers = 2131034114;
+			public const int buttonReset = 2131034114;
+			
+			// aapt resource value: 0x7f050000
+			public const int spinnerGame = 2131034112;
+			
+			// aapt resource value: 0x7f050003
+			public const int textNumbers = 2131034115;
 			
 			static Id()
 			{
@@ -100,6 +103,9 @@ namespace LottoCalc
 			
 			// aapt resource value: 0x7f040000
 			public const int ApplicationName = 2130968576;
+			
+			// aapt resource value: 0x7f040001
+			public const int SelectGamePrompt = 2130968577;
 			
 			static String()
 			{

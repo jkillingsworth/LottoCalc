@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="ApplicationName">Lotto Calc</string>
+  <string name="SelectGamePrompt">Select game</string>
 </resources>
