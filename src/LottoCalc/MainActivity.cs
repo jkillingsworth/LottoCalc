@@ -10,6 +10,9 @@ namespace LottoCalc
     [Activity(MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
+        private const string keyResetEnabled = "ResetEnabled";
+        private const string keyNumberString = "NumberString";
+
         private Button ButtonGenerate
         {
             get { return FindViewById<Button>(Resource.Id.buttonGenerate); }
@@ -33,6 +36,22 @@ namespace LottoCalc
 
             ButtonGenerate.Click += delegate { Generate(); };
             ButtonReset.Click += delegate { Reset(); };
+        }
+
+        protected override void OnRestoreInstanceState(Bundle savedInstanceState)
+        {
+            ButtonReset.Enabled = savedInstanceState.GetBoolean(keyResetEnabled);
+            TextNumbers.Text = savedInstanceState.GetString(keyNumberString);
+
+            base.OnRestoreInstanceState(savedInstanceState);
+        }
+
+        protected override void OnSaveInstanceState(Bundle outState)
+        {
+            outState.PutBoolean(keyResetEnabled, ButtonReset.Enabled);
+            outState.PutString(keyNumberString, TextNumbers.Text);
+
+            base.OnSaveInstanceState(outState);
         }
 
         private void Generate()
