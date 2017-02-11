@@ -10,35 +10,41 @@ namespace LottoCalc
     [Activity(MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
+        private Button ButtonGenerate
+        {
+            get { return FindViewById<Button>(Resource.Id.buttonGenerate); }
+        }
+
+        private Button ButtonReset
+        {
+            get { return FindViewById<Button>(Resource.Id.buttonReset); }
+        }
+
+        private TextView TextNumbers
+        {
+            get { return FindViewById<TextView>(Resource.Id.textNumbers); }
+        }
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.Main);
 
-            var buttonGenerate = FindViewById<Button>(Resource.Id.buttonGenerate);
-            var buttonReset = FindViewById<Button>(Resource.Id.buttonReset);
-
-            buttonGenerate.Click += delegate { Generate(); };
-            buttonReset.Click += delegate { Reset(); };
+            ButtonGenerate.Click += delegate { Generate(); };
+            ButtonReset.Click += delegate { Reset(); };
         }
 
         private void Generate()
         {
-            var textNumbers = FindViewById<TextView>(Resource.Id.textNumbers);
-            var buttonReset = FindViewById<Button>(Resource.Id.buttonReset);
-
-            textNumbers.Text = string.Join("  ", GetNumbers().Select(x => x.ToString()));
-            buttonReset.Enabled = true;
+            ButtonReset.Enabled = true;
+            TextNumbers.Text = string.Join("  ", GetNumbers().Select(x => x.ToString()));
         }
 
         private void Reset()
         {
-            var textNumbers = FindViewById<TextView>(Resource.Id.textNumbers);
-            var buttonReset = FindViewById<Button>(Resource.Id.buttonReset);
-
-            textNumbers.Text = "";
-            buttonReset.Enabled = false;
+            ButtonReset.Enabled = false;
+            TextNumbers.Text = "";
         }
 
         private List<int> GetNumbers()
