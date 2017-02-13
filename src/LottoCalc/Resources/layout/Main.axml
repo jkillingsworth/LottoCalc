@@ -15,10 +15,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/buttonCompute" />
     <Button
-        android:text="Reset"
+        android:text="Clear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonReset"
+        android:id="@+id/buttonClear"
         android:enabled="false" />
     <TextView
         android:layout_width="match_parent"

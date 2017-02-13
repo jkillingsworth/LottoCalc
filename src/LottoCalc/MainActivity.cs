@@ -11,7 +11,7 @@ namespace LottoCalc
     public class MainActivity : Activity
     {
         private const string keySelectedGame = "SelectedGame";
-        private const string keyResetEnabled = "ResetEnabled";
+        private const string keyClearEnabled = "ClearEnabled";
         private const string keyNumberString = "NumberString";
 
         private int selectedGamePosition = 0;
@@ -26,9 +26,9 @@ namespace LottoCalc
             get { return FindViewById<Button>(Resource.Id.buttonCompute); }
         }
 
-        private Button ButtonReset
+        private Button ButtonClear
         {
-            get { return FindViewById<Button>(Resource.Id.buttonReset); }
+            get { return FindViewById<Button>(Resource.Id.buttonClear); }
         }
 
         private TextView TextNumbers
@@ -50,13 +50,13 @@ namespace LottoCalc
             SpinnerGame.Adapter = adapter;
             SpinnerGame.ItemSelected += SpinnerGame_ItemSelected;
             ButtonCompute.Click += delegate { Compute(); };
-            ButtonReset.Click += delegate { Reset(); };
+            ButtonClear.Click += delegate { Clear(); };
         }
 
         protected override void OnRestoreInstanceState(Bundle savedInstanceState)
         {
             selectedGamePosition = savedInstanceState.GetInt(keySelectedGame);
-            ButtonReset.Enabled = savedInstanceState.GetBoolean(keyResetEnabled);
+            ButtonClear.Enabled = savedInstanceState.GetBoolean(keyClearEnabled);
             TextNumbers.Text = savedInstanceState.GetString(keyNumberString);
 
             base.OnRestoreInstanceState(savedInstanceState);
@@ -65,7 +65,7 @@ namespace LottoCalc
         protected override void OnSaveInstanceState(Bundle outState)
         {
             outState.PutInt(keySelectedGame, selectedGamePosition);
-            outState.PutBoolean(keyResetEnabled, ButtonReset.Enabled);
+            outState.PutBoolean(keyClearEnabled, ButtonClear.Enabled);
             outState.PutString(keyNumberString, TextNumbers.Text);
 
             base.OnSaveInstanceState(outState);
@@ -76,19 +76,19 @@ namespace LottoCalc
             if (selectedGamePosition != e.Position)
             {
                 selectedGamePosition = e.Position;
-                Reset();
+                Clear();
             }
         }
 
         private void Compute()
         {
-            ButtonReset.Enabled = true;
+            ButtonClear.Enabled = true;
             TextNumbers.Text = string.Join("  ", GetNumbers().Select(x => x.ToString()));
         }
 
-        private void Reset()
+        private void Clear()
         {
-            ButtonReset.Enabled = false;
+            ButtonClear.Enabled = false;
             TextNumbers.Text = "";
         }
 
