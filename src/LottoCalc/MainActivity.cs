@@ -21,9 +21,9 @@ namespace LottoCalc
             get { return FindViewById<Spinner>(Resource.Id.spinnerGame); }
         }
 
-        private Button ButtonGenerate
+        private Button ButtonCompute
         {
-            get { return FindViewById<Button>(Resource.Id.buttonGenerate); }
+            get { return FindViewById<Button>(Resource.Id.buttonCompute); }
         }
 
         private Button ButtonReset
@@ -49,7 +49,7 @@ namespace LottoCalc
 
             SpinnerGame.Adapter = adapter;
             SpinnerGame.ItemSelected += SpinnerGame_ItemSelected;
-            ButtonGenerate.Click += delegate { Generate(); };
+            ButtonCompute.Click += delegate { Compute(); };
             ButtonReset.Click += delegate { Reset(); };
         }
 
@@ -80,7 +80,7 @@ namespace LottoCalc
             }
         }
 
-        private void Generate()
+        private void Compute()
         {
             ButtonReset.Enabled = true;
             TextNumbers.Text = string.Join("  ", GetNumbers().Select(x => x.ToString()));

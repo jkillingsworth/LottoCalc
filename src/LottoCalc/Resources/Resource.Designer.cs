@@ -61,7 +61,7 @@ namespace LottoCalc
 		{
 			
 			// aapt resource value: 0x7f050001
-			public const int buttonGenerate = 2131034113;
+			public const int buttonCompute = 2131034113;
 			
 			// aapt resource value: 0x7f050002
 			public const int buttonReset = 2131034114;

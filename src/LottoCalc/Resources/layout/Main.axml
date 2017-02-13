@@ -10,10 +10,10 @@
         android:spinnerMode="dialog"
         android:prompt="@string/SelectGamePrompt" />
     <Button
-        android:text="Generate"
+        android:text="Compute"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonGenerate" />
+        android:id="@+id/buttonCompute" />
     <Button
         android:text="Reset"
         android:layout_width="match_parent"
