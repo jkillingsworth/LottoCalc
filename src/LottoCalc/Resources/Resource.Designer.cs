@@ -70,7 +70,7 @@ namespace LottoCalc
 			public const int spinnerGame = 2131034112;
 			
 			// aapt resource value: 0x7f050003
-			public const int textNumbers = 2131034115;
+			public const int textviewResult = 2131034115;
 			
 			static Id()
 			{

@@ -12,7 +12,7 @@ namespace LottoCalc
     {
         private const string keySelectedGame = "SelectedGame";
         private const string keyClearEnabled = "ClearEnabled";
-        private const string keyNumberString = "NumberString";
+        private const string keyResultString = "ResultString";
 
         private int selectedGamePosition = 0;
 
@@ -31,9 +31,9 @@ namespace LottoCalc
             get { return FindViewById<Button>(Resource.Id.buttonClear); }
         }
 
-        private TextView TextNumbers
+        private TextView TextviewResult
         {
-            get { return FindViewById<TextView>(Resource.Id.textNumbers); }
+            get { return FindViewById<TextView>(Resource.Id.textviewResult); }
         }
 
         protected override void OnCreate(Bundle bundle)
@@ -57,7 +57,7 @@ namespace LottoCalc
         {
             selectedGamePosition = savedInstanceState.GetInt(keySelectedGame);
             ButtonClear.Enabled = savedInstanceState.GetBoolean(keyClearEnabled);
-            TextNumbers.Text = savedInstanceState.GetString(keyNumberString);
+            TextviewResult.Text = savedInstanceState.GetString(keyResultString);
 
             base.OnRestoreInstanceState(savedInstanceState);
         }
@@ -66,7 +66,7 @@ namespace LottoCalc
         {
             outState.PutInt(keySelectedGame, selectedGamePosition);
             outState.PutBoolean(keyClearEnabled, ButtonClear.Enabled);
-            outState.PutString(keyNumberString, TextNumbers.Text);
+            outState.PutString(keyResultString, TextviewResult.Text);
 
             base.OnSaveInstanceState(outState);
         }
@@ -83,16 +83,16 @@ namespace LottoCalc
         private void Compute()
         {
             ButtonClear.Enabled = true;
-            TextNumbers.Text = string.Join("  ", GetNumbers().Select(x => x.ToString()));
+            TextviewResult.Text = string.Join("  ", GetResult().Select(x => x.ToString()));
         }
 
         private void Clear()
         {
             ButtonClear.Enabled = false;
-            TextNumbers.Text = "";
+            TextviewResult.Text = "";
         }
 
-        private List<int> GetNumbers()
+        private List<int> GetResult()
         {
             int poolCount;
             int pickCount;
