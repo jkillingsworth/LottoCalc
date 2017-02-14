@@ -60,17 +60,20 @@ namespace LottoCalc
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050002
-			public const int buttonClear = 2131034114;
+			// aapt resource value: 0x7f060002
+			public const int buttonClear = 2131099650;
 			
-			// aapt resource value: 0x7f050001
-			public const int buttonCompute = 2131034113;
+			// aapt resource value: 0x7f060001
+			public const int buttonCompute = 2131099649;
 			
-			// aapt resource value: 0x7f050000
-			public const int spinnerGame = 2131034112;
+			// aapt resource value: 0x7f060004
+			public const int menuitemOptionsAbout = 2131099652;
 			
-			// aapt resource value: 0x7f050003
-			public const int textviewResult = 2131034115;
+			// aapt resource value: 0x7f060000
+			public const int spinnerGame = 2131099648;
+			
+			// aapt resource value: 0x7f060003
+			public const int textviewResult = 2131099651;
 			
 			static Id()
 			{
@@ -98,8 +101,36 @@ namespace LottoCalc
 			}
 		}
 		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f050000
+			public const int Options = 2131034112;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
+			{
+			}
+		}
+		
 		public partial class String
 		{
+			
+			// aapt resource value: 0x7f040003
+			public const int AboutMessage = 2130968579;
+			
+			// aapt resource value: 0x7f040002
+			public const int AboutTitle = 2130968578;
+			
+			// aapt resource value: 0x7f040004
+			public const int AboutVersion = 2130968580;
+			
+			// aapt resource value: 0x7f040005
+			public const int AcceptButtonText = 2130968581;
 			
 			// aapt resource value: 0x7f040000
 			public const int ApplicationName = 2130968576;

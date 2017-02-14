@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 
 namespace LottoCalc
@@ -34,6 +35,37 @@ namespace LottoCalc
         private TextView TextviewResult
         {
             get { return FindViewById<TextView>(Resource.Id.textviewResult); }
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.Options, menu);
+
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override bool OnMenuItemSelected(int featureId, IMenuItem item)
+        {
+            if (item.ItemId == Resource.Id.menuitemOptionsAbout)
+            {
+                var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                var version = assembly.GetName().Version;
+
+                var applicationName = Resources.GetString(Resource.String.ApplicationName);
+                var aboutTitle = Resources.GetString(Resource.String.AboutTitle);
+                var aboutMessage = Resources.GetString(Resource.String.AboutMessage);
+                var aboutVersion = Resources.GetString(Resource.String.AboutVersion);
+                var acceptButtonText = Resources.GetString(Resource.String.AcceptButtonText);
+
+                new AlertDialog.Builder(this)
+                    .SetIcon(Resource.Drawable.Icon)
+                    .SetTitle(aboutTitle)
+                    .SetMessage(string.Format("{0}\n\n{1}\n\n{2} {3}", applicationName, aboutMessage, aboutVersion, version))
+                    .SetNeutralButton(acceptButtonText, (s, ea) => { return; })
+                    .Create().Show();
+            }
+
+            return base.OnMenuItemSelected(featureId, item);
         }
 
         protected override void OnCreate(Bundle bundle)
