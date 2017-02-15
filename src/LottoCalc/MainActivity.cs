@@ -12,10 +12,12 @@ namespace LottoCalc
     public class MainActivity : Activity
     {
         private const string keySelectedGame = "SelectedGame";
-        private const string keyClearEnabled = "ClearEnabled";
-        private const string keyResultString = "ResultString";
+        private const string keyResultValues = "ResultValues";
+        private const string keyDoResultSort = "DoResultSort";
 
         private int selectedGamePosition = 0;
+        private int[] result = null;
+        private bool resultSort = false;
 
         private Spinner SpinnerGame
         {
@@ -44,8 +46,22 @@ namespace LottoCalc
             return base.OnCreateOptionsMenu(menu);
         }
 
+        public override bool OnPrepareOptionsMenu(IMenu menu)
+        {
+            menu.FindItem(Resource.Id.menuitemOptionsSortResult).SetChecked(resultSort);
+
+            return base.OnPrepareOptionsMenu(menu);
+        }
+
         public override bool OnMenuItemSelected(int featureId, IMenuItem item)
         {
+            if (item.ItemId == Resource.Id.menuitemOptionsSortResult)
+            {
+                resultSort = !resultSort;
+                item.SetChecked(resultSort);
+                TextviewResult.Text = GetResultString();
+            }
+
             if (item.ItemId == Resource.Id.menuitemOptionsAbout)
             {
                 var assembly = System.Reflection.Assembly.GetExecutingAssembly();
@@ -88,8 +104,11 @@ namespace LottoCalc
         protected override void OnRestoreInstanceState(Bundle savedInstanceState)
         {
             selectedGamePosition = savedInstanceState.GetInt(keySelectedGame);
-            ButtonClear.Enabled = savedInstanceState.GetBoolean(keyClearEnabled);
-            TextviewResult.Text = savedInstanceState.GetString(keyResultString);
+            result = savedInstanceState.GetIntArray(keyResultValues);
+            resultSort = savedInstanceState.GetBoolean(keyDoResultSort);
+
+            ButtonClear.Enabled = (result != null);
+            TextviewResult.Text = GetResultString();
 
             base.OnRestoreInstanceState(savedInstanceState);
         }
@@ -97,8 +116,8 @@ namespace LottoCalc
         protected override void OnSaveInstanceState(Bundle outState)
         {
             outState.PutInt(keySelectedGame, selectedGamePosition);
-            outState.PutBoolean(keyClearEnabled, ButtonClear.Enabled);
-            outState.PutString(keyResultString, TextviewResult.Text);
+            outState.PutIntArray(keyResultValues, result);
+            outState.PutBoolean(keyDoResultSort, resultSort);
 
             base.OnSaveInstanceState(outState);
         }
@@ -125,17 +144,35 @@ namespace LottoCalc
 
         private void Compute()
         {
-            ButtonClear.Enabled = true;
-            TextviewResult.Text = string.Join("  ", GetResult().Select(x => x.ToString()));
+            result = GetResult();
+
+            ButtonClear.Enabled = (result != null);
+            TextviewResult.Text = GetResultString();
         }
 
         private void Clear()
         {
-            ButtonClear.Enabled = false;
-            TextviewResult.Text = "";
+            result = null;
+
+            ButtonClear.Enabled = (result != null);
+            TextviewResult.Text = GetResultString();
         }
 
-        private List<int> GetResult()
+        private string GetResultString()
+        {
+            if (result == null)
+            {
+                return string.Empty;
+            }
+
+            var values = resultSort
+                ? result.OrderBy(x => x).ToArray()
+                : result;
+
+            return string.Join("  ", values.Select(x => x.ToString()));
+        }
+
+        private int[] GetResult()
         {
             int poolCount;
             int pickCount;
@@ -174,7 +211,7 @@ namespace LottoCalc
                 pickValues.Add(value);
             }
 
-            return pickValues;
+            return pickValues.ToArray();
         }
     }
 }

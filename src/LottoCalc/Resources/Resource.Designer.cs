@@ -66,8 +66,11 @@ namespace LottoCalc
 			// aapt resource value: 0x7f060001
 			public const int buttonCompute = 2131099649;
 			
+			// aapt resource value: 0x7f060005
+			public const int menuitemOptionsAbout = 2131099653;
+			
 			// aapt resource value: 0x7f060004
-			public const int menuitemOptionsAbout = 2131099652;
+			public const int menuitemOptionsSortResult = 2131099652;
 			
 			// aapt resource value: 0x7f060000
 			public const int spinnerGame = 2131099648;
