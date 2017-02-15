@@ -81,8 +81,8 @@ namespace LottoCalc
 
             SpinnerGame.Adapter = adapter;
             SpinnerGame.ItemSelected += SpinnerGame_ItemSelected;
-            ButtonCompute.Click += delegate { Compute(); };
-            ButtonClear.Click += delegate { Clear(); };
+            ButtonCompute.Click += ButtonCompute_Click;
+            ButtonClear.Click += ButtonClear_Click;
         }
 
         protected override void OnRestoreInstanceState(Bundle savedInstanceState)
@@ -110,6 +110,17 @@ namespace LottoCalc
                 selectedGamePosition = e.Position;
                 Clear();
             }
+        }
+
+        private void ButtonCompute_Click(object sender, EventArgs e)
+        {
+            Compute();
+        }
+
+        private void ButtonClear_Click(object sender, EventArgs e)
+        {
+            Clear();
+            Toast.MakeText(this, Resource.String.ToastResultWasCleared, ToastLength.Short).Show();
         }
 
         private void Compute()

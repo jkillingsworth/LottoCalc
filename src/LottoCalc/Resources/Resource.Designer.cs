@@ -120,23 +120,26 @@ namespace LottoCalc
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040003
-			public const int AboutMessage = 2130968579;
-			
-			// aapt resource value: 0x7f040002
-			public const int AboutTitle = 2130968578;
-			
 			// aapt resource value: 0x7f040004
-			public const int AboutVersion = 2130968580;
+			public const int AboutMessage = 2130968580;
+			
+			// aapt resource value: 0x7f040003
+			public const int AboutTitle = 2130968579;
 			
 			// aapt resource value: 0x7f040005
-			public const int AcceptButtonText = 2130968581;
+			public const int AboutVersion = 2130968581;
+			
+			// aapt resource value: 0x7f040006
+			public const int AcceptButtonText = 2130968582;
 			
 			// aapt resource value: 0x7f040000
 			public const int ApplicationName = 2130968576;
 			
 			// aapt resource value: 0x7f040001
 			public const int SelectGamePrompt = 2130968577;
+			
+			// aapt resource value: 0x7f040002
+			public const int ToastResultWasCleared = 2130968578;
 			
 			static String()
 			{
