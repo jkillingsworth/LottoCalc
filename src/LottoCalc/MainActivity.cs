@@ -98,20 +98,20 @@ namespace LottoCalc
             base.OnResume();
         }
 
-        protected override void OnRestoreInstanceState(Bundle savedInstanceState)
+        protected override void OnRestoreInstanceState(Bundle bundle)
         {
-            selectedGamePosition = savedInstanceState.GetInt(keySelectedGame);
-            result = savedInstanceState.GetIntArray(keyResultValues);
+            selectedGamePosition = bundle.GetInt(keySelectedGame);
+            result = bundle.GetIntArray(keyResultValues);
 
-            base.OnRestoreInstanceState(savedInstanceState);
+            base.OnRestoreInstanceState(bundle);
         }
 
-        protected override void OnSaveInstanceState(Bundle outState)
+        protected override void OnSaveInstanceState(Bundle bundle)
         {
-            outState.PutInt(keySelectedGame, selectedGamePosition);
-            outState.PutIntArray(keyResultValues, result);
+            bundle.PutInt(keySelectedGame, selectedGamePosition);
+            bundle.PutIntArray(keyResultValues, result);
 
-            base.OnSaveInstanceState(outState);
+            base.OnSaveInstanceState(bundle);
         }
 
         private void SpinnerGame_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)

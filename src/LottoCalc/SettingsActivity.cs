@@ -20,9 +20,9 @@ namespace LottoCalc
 
     public class SettingsFragment : PreferenceFragment
     {
-        public override void OnCreate(Bundle savedInstanceState)
+        public override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(savedInstanceState);
+            base.OnCreate(bundle);
             AddPreferencesFromResource(Resource.Xml.Preferences);
         }
     }
