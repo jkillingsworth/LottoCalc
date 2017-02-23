@@ -6,24 +6,24 @@
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spinnerGame"
+        android:id="@+id/SpinnerGame"
         android:spinnerMode="dialog"
         android:prompt="@string/SelectGamePrompt" />
     <Button
         android:text="Compute"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonCompute" />
+        android:id="@+id/ButtonCompute" />
     <Button
         android:text="Clear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonClear"
+        android:id="@+id/ButtonClear"
         android:enabled="false" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textviewResult"
+        android:id="@+id/TextviewResult"
         android:textSize="16pt"
         android:gravity="center" />
 </LinearLayout>

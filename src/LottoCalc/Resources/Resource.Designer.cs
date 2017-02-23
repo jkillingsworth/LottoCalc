@@ -61,22 +61,22 @@ namespace LottoCalc
 		{
 			
 			// aapt resource value: 0x7f060002
-			public const int buttonClear = 2131099650;
+			public const int ButtonClear = 2131099650;
 			
 			// aapt resource value: 0x7f060001
-			public const int buttonCompute = 2131099649;
+			public const int ButtonCompute = 2131099649;
 			
 			// aapt resource value: 0x7f060005
-			public const int menuitemOptionsAbout = 2131099653;
+			public const int MenuitemOptionsAbout = 2131099653;
 			
 			// aapt resource value: 0x7f060004
-			public const int menuitemOptionsSortResult = 2131099652;
+			public const int MenuitemOptionsSortResult = 2131099652;
 			
 			// aapt resource value: 0x7f060000
-			public const int spinnerGame = 2131099648;
+			public const int SpinnerGame = 2131099648;
 			
 			// aapt resource value: 0x7f060003
-			public const int textviewResult = 2131099651;
+			public const int TextviewResult = 2131099651;
 			
 			static Id()
 			{

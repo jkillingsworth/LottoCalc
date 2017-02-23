@@ -8,7 +8,7 @@ using Android.Widget;
 
 namespace LottoCalc
 {
-    [Activity(MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(MainLauncher = true, Icon = "@drawable/Icon")]
     public class MainActivity : Activity
     {
         private const string keySelectedGame = "SelectedGame";
@@ -21,22 +21,22 @@ namespace LottoCalc
 
         private Spinner SpinnerGame
         {
-            get { return FindViewById<Spinner>(Resource.Id.spinnerGame); }
+            get { return FindViewById<Spinner>(Resource.Id.SpinnerGame); }
         }
 
         private Button ButtonCompute
         {
-            get { return FindViewById<Button>(Resource.Id.buttonCompute); }
+            get { return FindViewById<Button>(Resource.Id.ButtonCompute); }
         }
 
         private Button ButtonClear
         {
-            get { return FindViewById<Button>(Resource.Id.buttonClear); }
+            get { return FindViewById<Button>(Resource.Id.ButtonClear); }
         }
 
         private TextView TextviewResult
         {
-            get { return FindViewById<TextView>(Resource.Id.textviewResult); }
+            get { return FindViewById<TextView>(Resource.Id.TextviewResult); }
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -48,21 +48,21 @@ namespace LottoCalc
 
         public override bool OnPrepareOptionsMenu(IMenu menu)
         {
-            menu.FindItem(Resource.Id.menuitemOptionsSortResult).SetChecked(resultSort);
+            menu.FindItem(Resource.Id.MenuitemOptionsSortResult).SetChecked(resultSort);
 
             return base.OnPrepareOptionsMenu(menu);
         }
 
         public override bool OnMenuItemSelected(int featureId, IMenuItem item)
         {
-            if (item.ItemId == Resource.Id.menuitemOptionsSortResult)
+            if (item.ItemId == Resource.Id.MenuitemOptionsSortResult)
             {
                 resultSort = !resultSort;
                 item.SetChecked(resultSort);
                 TextviewResult.Text = GetResultString();
             }
 
-            if (item.ItemId == Resource.Id.menuitemOptionsAbout)
+            if (item.ItemId == Resource.Id.MenuitemOptionsAbout)
             {
                 var assembly = System.Reflection.Assembly.GetExecutingAssembly();
                 var version = assembly.GetName().Version;
