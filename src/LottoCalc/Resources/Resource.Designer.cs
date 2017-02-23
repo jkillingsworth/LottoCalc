@@ -167,7 +167,7 @@ namespace LottoCalc
 		{
 			
 			// aapt resource value: 0x7f040000
-			public const int Preferences = 2130968576;
+			public const int Settings = 2130968576;
 			
 			static Xml()
 			{
