@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="ApplicationName">Lotto Calc</string>
-  <string name="SelectGamePrompt">Select game</string>
-  <string name="ToastResultWasCleared">Result was cleared.</string>
-  <string name="AboutTitle">About</string>
   <string name="AboutMessage">This is an app for picking lottery numbers.</string>
+  <string name="AboutTitle">About</string>
   <string name="AboutVersion">Version</string>
-  <string name="AcceptButtonText">OK</string>
+  <string name="ApplicationName">Lotto Calc</string>
+  <string name="ButtonTextClear">Clear</string>
+  <string name="ButtonTextCompute">Compute</string>
+  <string name="ButtonTextOK">OK</string>
+  <string name="PromptSelectGame">Select game</string>
+  <string name="ToastResultCleared">Result was cleared.</string>
 </resources>

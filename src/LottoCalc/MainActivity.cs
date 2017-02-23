@@ -71,13 +71,13 @@ namespace LottoCalc
                 var aboutTitle = Resources.GetString(Resource.String.AboutTitle);
                 var aboutMessage = Resources.GetString(Resource.String.AboutMessage);
                 var aboutVersion = Resources.GetString(Resource.String.AboutVersion);
-                var acceptButtonText = Resources.GetString(Resource.String.AcceptButtonText);
+                var buttonTextOK = Resources.GetString(Resource.String.ButtonTextOK);
 
                 new AlertDialog.Builder(this)
                     .SetIcon(Resource.Drawable.Icon)
                     .SetTitle(aboutTitle)
                     .SetMessage(string.Format("{0}\n\n{1}\n\n{2} {3}", applicationName, aboutMessage, aboutVersion, version))
-                    .SetNeutralButton(acceptButtonText, (s, ea) => { return; })
+                    .SetNeutralButton(buttonTextOK, (s, ea) => { return; })
                     .Create().Show();
             }
 
@@ -139,7 +139,7 @@ namespace LottoCalc
         private void ButtonClear_Click(object sender, EventArgs e)
         {
             Clear();
-            Toast.MakeText(this, Resource.String.ToastResultWasCleared, ToastLength.Short).Show();
+            Toast.MakeText(this, Resource.String.ToastResultCleared, ToastLength.Short).Show();
         }
 
         private void Compute()

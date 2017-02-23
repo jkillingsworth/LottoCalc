@@ -8,17 +8,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/SpinnerGame"
         android:spinnerMode="dialog"
-        android:prompt="@string/SelectGamePrompt" />
+        android:prompt="@string/PromptSelectGame" />
     <Button
-        android:text="Compute"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ButtonCompute" />
+        android:id="@+id/ButtonCompute"
+        android:text="@string/ButtonTextCompute" />
     <Button
-        android:text="Clear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ButtonClear"
+        android:text="@string/ButtonTextClear"
         android:enabled="false" />
     <TextView
         android:layout_width="match_parent"
