@@ -13,11 +13,9 @@ namespace LottoCalc
     {
         private const string keySelectedGame = "SelectedGame";
         private const string keyResultValues = "ResultValues";
-        private const string keyDoResultSort = "DoResultSort";
 
         private int selectedGamePosition = 0;
         private int[] result = null;
-        private bool resultSort = false;
 
         private Spinner SpinnerGame
         {
@@ -46,20 +44,11 @@ namespace LottoCalc
             return base.OnCreateOptionsMenu(menu);
         }
 
-        public override bool OnPrepareOptionsMenu(IMenu menu)
-        {
-            menu.FindItem(Resource.Id.MenuitemOptionsSortResult).SetChecked(resultSort);
-
-            return base.OnPrepareOptionsMenu(menu);
-        }
-
         public override bool OnMenuItemSelected(int featureId, IMenuItem item)
         {
-            if (item.ItemId == Resource.Id.MenuitemOptionsSortResult)
+            if (item.ItemId == Resource.Id.MenuitemOptionsSettings)
             {
-                resultSort = !resultSort;
-                item.SetChecked(resultSort);
-                TextviewResult.Text = GetResultString();
+                StartActivity(typeof(SettingsActivity));
             }
 
             if (item.ItemId == Resource.Id.MenuitemOptionsAbout)
@@ -84,6 +73,12 @@ namespace LottoCalc
             return base.OnMenuItemSelected(featureId, item);
         }
 
+        protected override void OnResume()
+        {
+            TextviewResult.Text = GetResultString();
+            base.OnResume();
+        }
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -105,7 +100,6 @@ namespace LottoCalc
         {
             selectedGamePosition = savedInstanceState.GetInt(keySelectedGame);
             result = savedInstanceState.GetIntArray(keyResultValues);
-            resultSort = savedInstanceState.GetBoolean(keyDoResultSort);
 
             ButtonClear.Enabled = (result != null);
             TextviewResult.Text = GetResultString();
@@ -117,7 +111,6 @@ namespace LottoCalc
         {
             outState.PutInt(keySelectedGame, selectedGamePosition);
             outState.PutIntArray(keyResultValues, result);
-            outState.PutBoolean(keyDoResultSort, resultSort);
 
             base.OnSaveInstanceState(outState);
         }
@@ -165,7 +158,7 @@ namespace LottoCalc
                 return string.Empty;
             }
 
-            var values = resultSort
+            var values = Settings.GetSortResult(this)
                 ? result.OrderBy(x => x).ToArray()
                 : result;
 

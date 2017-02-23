@@ -8,5 +8,6 @@
   <string name="ButtonTextCompute">Compute</string>
   <string name="ButtonTextOK">OK</string>
   <string name="PromptSelectGame">Select game</string>
+  <string name="LabelSettings">Settings</string>
   <string name="ToastResultCleared">Result was cleared.</string>
 </resources>
