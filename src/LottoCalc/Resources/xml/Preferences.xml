@@ -4,4 +4,8 @@
       android:key="SortResult"
       android:title="Sort result"
       android:summary="Sort the computed lottery numbers in ascending order" />
+  <CheckBoxPreference
+      android:key="UseZeroPad"
+      android:title="Use zero padding"
+      android:summary="Pad single digit numbers with a leading zero" />
 </PreferenceScreen>

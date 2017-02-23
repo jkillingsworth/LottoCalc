@@ -162,7 +162,11 @@ namespace LottoCalc
                 ? result.OrderBy(x => x).ToArray()
                 : result;
 
-            return string.Join("  ", values.Select(x => x.ToString()));
+            var format = Settings.GetUseZeroPad(this)
+                ? "00"
+                : "0";
+
+            return string.Join("  ", values.Select(x => x.ToString(format)));
         }
 
         private int[] GetResult()
