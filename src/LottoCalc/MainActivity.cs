@@ -66,7 +66,7 @@ namespace LottoCalc
                     .SetIcon(Resource.Drawable.Icon)
                     .SetTitle(aboutTitle)
                     .SetMessage(string.Format("{0}\n\n{1}\n\n{2} {3}", applicationName, aboutMessage, aboutVersion, version))
-                    .SetNeutralButton(buttonTextOK, (s, ea) => { return; })
+                    .SetPositiveButton(buttonTextOK, (s, ea) => { return; })
                     .Create().Show();
             }
 
