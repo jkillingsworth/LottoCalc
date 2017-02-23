@@ -73,12 +73,6 @@ namespace LottoCalc
             return base.OnMenuItemSelected(featureId, item);
         }
 
-        protected override void OnResume()
-        {
-            TextviewResult.Text = GetResultString();
-            base.OnResume();
-        }
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -96,13 +90,18 @@ namespace LottoCalc
             ButtonClear.Click += ButtonClear_Click;
         }
 
+        protected override void OnResume()
+        {
+            ButtonClear.Enabled = (result != null);
+            TextviewResult.Text = GetResultString();
+
+            base.OnResume();
+        }
+
         protected override void OnRestoreInstanceState(Bundle savedInstanceState)
         {
             selectedGamePosition = savedInstanceState.GetInt(keySelectedGame);
             result = savedInstanceState.GetIntArray(keyResultValues);
-
-            ButtonClear.Enabled = (result != null);
-            TextviewResult.Text = GetResultString();
 
             base.OnRestoreInstanceState(savedInstanceState);
         }
