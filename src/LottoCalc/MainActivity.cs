@@ -13,6 +13,7 @@ namespace LottoCalc
     {
         private const string keySelectedGame = "SelectedGame";
         private const string keyResultValues = "ResultValues";
+        private const string tagDialogAbout = "DialogAbout";
 
         private int selectedGamePosition = 0;
         private int[] result = null;
@@ -53,21 +54,7 @@ namespace LottoCalc
 
             if (item.ItemId == Resource.Id.MenuitemOptionsAbout)
             {
-                var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-                var version = assembly.GetName().Version;
-
-                var applicationName = Resources.GetString(Resource.String.ApplicationName);
-                var aboutTitle = Resources.GetString(Resource.String.AboutTitle);
-                var aboutMessage = Resources.GetString(Resource.String.AboutMessage);
-                var aboutVersion = Resources.GetString(Resource.String.AboutVersion);
-                var buttonTextOK = Resources.GetString(Resource.String.ButtonTextOK);
-
-                new AlertDialog.Builder(this)
-                    .SetIcon(Resource.Drawable.Icon)
-                    .SetTitle(aboutTitle)
-                    .SetMessage(string.Format("{0}\n\n{1}\n\n{2} {3}", applicationName, aboutMessage, aboutVersion, version))
-                    .SetPositiveButton(buttonTextOK, (s, ea) => { return; })
-                    .Create().Show();
+                new AboutDialogFragment().Show(FragmentManager, tagDialogAbout);
             }
 
             return base.OnMenuItemSelected(featureId, item);

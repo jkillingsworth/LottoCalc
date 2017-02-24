@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="AboutMessage">This is an app for picking lottery numbers.</string>
-  <string name="AboutTitle">About</string>
+  <string name="AboutMessage">An app for picking lottery numbers</string>
   <string name="AboutVersion">Version</string>
   <string name="ApplicationName">Lotto Calc</string>
   <string name="ButtonTextClear">Clear</string>
