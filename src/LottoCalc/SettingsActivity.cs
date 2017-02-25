@@ -23,6 +23,7 @@ namespace LottoCalc
         public override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+
             AddPreferencesFromResource(Resource.Xml.Settings);
         }
     }

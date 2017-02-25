@@ -79,10 +79,9 @@ namespace LottoCalc
 
         protected override void OnResume()
         {
-            ButtonClear.Enabled = (result != null);
-            PopulateResult();
-
             base.OnResume();
+
+            RefreshScreen();
         }
 
         protected override void OnRestoreInstanceState(Bundle bundle)
@@ -124,21 +123,19 @@ namespace LottoCalc
         private void Compute()
         {
             result = GetResult();
-
-            ButtonClear.Enabled = (result != null);
-            PopulateResult();
+            RefreshScreen();
         }
 
         private void Clear()
         {
             result = null;
-
-            ButtonClear.Enabled = (result != null);
-            PopulateResult();
+            RefreshScreen();
         }
 
-        private void PopulateResult()
+        private void RefreshScreen()
         {
+            ButtonClear.Enabled = (result != null);
+
             LayoutResult.RemoveAllViews();
 
             if (result == null)
