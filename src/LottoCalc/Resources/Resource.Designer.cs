@@ -47,6 +47,12 @@ namespace LottoCalc
 			// aapt resource value: 0x7f020000
 			public const int Icon = 2130837504;
 			
+			// aapt resource value: 0x7f020001
+			public const int ResultBackground = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int ResultDivider = 2130837506;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -66,6 +72,9 @@ namespace LottoCalc
 			// aapt resource value: 0x7f070001
 			public const int ButtonCompute = 2131165185;
 			
+			// aapt resource value: 0x7f070003
+			public const int LayoutResult = 2131165187;
+			
 			// aapt resource value: 0x7f070005
 			public const int MenuitemOptionsAbout = 2131165189;
 			
@@ -74,9 +83,6 @@ namespace LottoCalc
 			
 			// aapt resource value: 0x7f070000
 			public const int SpinnerGame = 2131165184;
-			
-			// aapt resource value: 0x7f070003
-			public const int TextviewResult = 2131165187;
 			
 			static Id()
 			{

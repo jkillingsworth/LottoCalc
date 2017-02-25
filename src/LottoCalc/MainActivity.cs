@@ -33,9 +33,9 @@ namespace LottoCalc
             get { return FindViewById<Button>(Resource.Id.ButtonClear); }
         }
 
-        private TextView TextviewResult
+        private LinearLayout LayoutResult
         {
-            get { return FindViewById<TextView>(Resource.Id.TextviewResult); }
+            get { return FindViewById<LinearLayout>(Resource.Id.LayoutResult); }
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -80,7 +80,7 @@ namespace LottoCalc
         protected override void OnResume()
         {
             ButtonClear.Enabled = (result != null);
-            TextviewResult.Text = GetResultString();
+            PopulateResult();
 
             base.OnResume();
         }
@@ -126,7 +126,7 @@ namespace LottoCalc
             result = GetResult();
 
             ButtonClear.Enabled = (result != null);
-            TextviewResult.Text = GetResultString();
+            PopulateResult();
         }
 
         private void Clear()
@@ -134,25 +134,30 @@ namespace LottoCalc
             result = null;
 
             ButtonClear.Enabled = (result != null);
-            TextviewResult.Text = GetResultString();
+            PopulateResult();
         }
 
-        private string GetResultString()
+        private void PopulateResult()
         {
+            LayoutResult.RemoveAllViews();
+
             if (result == null)
             {
-                return string.Empty;
+                return;
             }
 
-            var values = Settings.GetSortResult(this)
-                ? result.OrderBy(x => x).ToArray()
-                : result;
+            var values = Settings.GetSortResult(this) ? result.OrderBy(x => x).ToArray() : result;
+            var format = Settings.GetUseZeroPad(this) ? "00" : "0";
 
-            var format = Settings.GetUseZeroPad(this)
-                ? "00"
-                : "0";
-
-            return string.Join("  ", values.Select(x => x.ToString(format)));
+            foreach (var value in values)
+            {
+                var textview = new TextView(this);
+                textview.Text = value.ToString(format);
+                textview.SetTextSize(Android.Util.ComplexUnitType.Pt, 16);
+                textview.SetBackgroundResource(Resource.Drawable.ResultBackground);
+                textview.Gravity = GravityFlags.Center;
+                LayoutResult.AddView(textview);
+            }
         }
 
         private int[] GetResult()

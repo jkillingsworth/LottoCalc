@@ -20,10 +20,13 @@
         android:id="@+id/ButtonClear"
         android:text="@string/ButtonTextClear"
         android:enabled="false" />
-    <TextView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/TextviewResult"
-        android:textSize="16pt"
-        android:gravity="center" />
+        android:id="@+id/LayoutResult"
+        android:gravity="center"
+        android:showDividers="middle"
+        android:divider="@drawable/ResultDivider"
+        android:padding="5dp" />
 </LinearLayout>
