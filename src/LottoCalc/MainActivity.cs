@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Android.App;
 using Android.OS;
@@ -11,12 +10,28 @@ namespace LottoCalc
     [Activity(MainLauncher = true, Icon = "@drawable/Icon")]
     public class MainActivity : Activity
     {
+        private readonly Game[] games = new Game[]
+        {
+            new Game("Powerball",     new CombinedPool(5, 1, 69), new CombinedPool(1, 1, 26)),
+            new Game("Mega Millions", new CombinedPool(5, 1, 75), new CombinedPool(1, 1, 15)),
+            new Game("Florida Lotto", new CombinedPool(6, 1, 53)),
+            new Game("Cash4Life",     new CombinedPool(5, 1, 60), new CombinedPool(1, 1, 4)),
+            new Game("Lucky Money",   new CombinedPool(4, 1, 47), new CombinedPool(1, 1, 17)),
+            new Game("Fantasy 5",     new CombinedPool(5, 1, 36)),
+            new Game("Pick 5",        new SeparatePool(5, 0, 9)),
+            new Game("Pick 4",        new SeparatePool(4, 0, 9)),
+            new Game("Pick 3",        new SeparatePool(3, 0, 9)),
+            new Game("Pick 2",        new SeparatePool(2, 0, 9)),
+        };
+
         private const string keySelectedGame = "SelectedGame";
-        private const string keyResultValues = "ResultValues";
+        private const string keyResultEmpty = "ResultEmpty";
+        private const string keyResultPrincipal = "ResultPrincipal";
+        private const string keyResultSecondary = "ResultSecondary";
         private const string tagDialogAbout = "DialogAbout";
 
         private int selectedGamePosition = 0;
-        private int[] result = null;
+        private Result result = null;
 
         private Spinner SpinnerGame
         {
@@ -66,10 +81,14 @@ namespace LottoCalc
 
             SetContentView(Resource.Layout.Main);
 
-            var adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            adapter.Add("Florida Lotto");
-            adapter.Add("Fantasy 5");
+            var adapterResource = Android.Resource.Layout.SimpleSpinnerDropDownItem;
+            var adapter = new ArrayAdapter<string>(this, adapterResource);
+            adapter.SetDropDownViewResource(adapterResource);
+
+            foreach (var game in games)
+            {
+                adapter.Add(game.Name);
+            }
 
             SpinnerGame.Adapter = adapter;
             SpinnerGame.ItemSelected += SpinnerGame_ItemSelected;
@@ -87,7 +106,20 @@ namespace LottoCalc
         protected override void OnRestoreInstanceState(Bundle bundle)
         {
             selectedGamePosition = bundle.GetInt(keySelectedGame);
-            result = bundle.GetIntArray(keyResultValues);
+
+            var resultEmpty = bundle.GetBoolean(keyResultEmpty);
+            if (resultEmpty)
+            {
+                result = null;
+            }
+            else
+            {
+                result = new Result
+                {
+                    Principal = bundle.GetIntArray(keyResultPrincipal),
+                    Secondary = bundle.GetIntArray(keyResultSecondary)
+                };
+            }
 
             base.OnRestoreInstanceState(bundle);
         }
@@ -95,7 +127,17 @@ namespace LottoCalc
         protected override void OnSaveInstanceState(Bundle bundle)
         {
             bundle.PutInt(keySelectedGame, selectedGamePosition);
-            bundle.PutIntArray(keyResultValues, result);
+
+            if (result == null)
+            {
+                bundle.PutBoolean(keyResultEmpty, true);
+            }
+            else
+            {
+                bundle.PutBoolean(keyResultEmpty, false);
+                bundle.PutIntArray(keyResultPrincipal, result.Principal);
+                bundle.PutIntArray(keyResultSecondary, result.Secondary);
+            }
 
             base.OnSaveInstanceState(bundle);
         }
@@ -122,7 +164,7 @@ namespace LottoCalc
 
         private void Compute()
         {
-            result = GetResult();
+            result = Calculation.Execute(games[selectedGamePosition]);
             RefreshScreen();
         }
 
@@ -143,60 +185,35 @@ namespace LottoCalc
                 return;
             }
 
-            var values = Settings.GetSortResult(this) ? result.OrderBy(x => x).ToArray() : result;
-            var format = Settings.GetUseZeroPad(this) ? "00" : "0";
-
-            foreach (var value in values)
+            foreach (var value in GetValues(result.Principal))
             {
                 var textview = new TextView(this);
-                textview.Text = value.ToString(format);
+                textview.Text = value;
                 textview.SetTextSize(Android.Util.ComplexUnitType.Pt, 16);
                 textview.SetBackgroundResource(Resource.Drawable.ResultBackground);
                 textview.Gravity = GravityFlags.Center;
                 LayoutResult.AddView(textview);
             }
+
+            foreach (var value in GetValues(result.Secondary))
+            {
+                var textview = new TextView(this);
+                textview.Text = value;
+                textview.SetTextSize(Android.Util.ComplexUnitType.Pt, 16);
+                textview.SetBackgroundResource(Resource.Drawable.ResultBackground);
+                textview.Gravity = GravityFlags.Center;
+                textview.SetTextColor(Android.Graphics.Color.Yellow);
+                LayoutResult.AddView(textview);
+            }
         }
 
-        private int[] GetResult()
+        private string[] GetValues(int[] result)
         {
-            int poolCount;
-            int pickCount;
+            var format = Settings.GetUseZeroPad(this) ? "00" : "0";
+            var values = Settings.GetSortResult(this) ? result.OrderBy(x => x).ToArray() : result;
+            var output = values.Select(x => x.ToString(format));
 
-            switch (selectedGamePosition)
-            {
-                case 0:
-                    poolCount = 53;
-                    pickCount = 6;
-                    break;
-
-                case 1:
-                    poolCount = 36;
-                    pickCount = 5;
-                    break;
-
-                default:
-                    throw new ApplicationException();
-            }
-
-            var poolValues = new List<int>(poolCount);
-            var pickValues = new List<int>(pickCount);
-
-            var random = new Random();
-
-            for (int i = 0; i < poolCount; i++)
-            {
-                poolValues.Add(i + 1);
-            }
-
-            for (int i = 0; i < pickCount; i++)
-            {
-                var index = random.Next(poolValues.Count);
-                var value = poolValues[index];
-                poolValues.RemoveAt(index);
-                pickValues.Add(value);
-            }
-
-            return pickValues.ToArray();
+            return output.ToArray();
         }
     }
 }
